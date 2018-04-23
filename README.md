@@ -10,7 +10,9 @@ There are several options to run Scheme on Windows 10:
  
  Note: The Windows executable for MIT-Scheme appears to no longer work in Windows 10.
 
-## Documentation 
+## Documentation
+
+[MIT Scheme Reference Manual](https://groups.csail.mit.edu/mac/ftpdir/mit-scheme/7.7/7.7.1/doc-pdf/scheme.pdf)
 
 ### MIT/GNU Scheme Users Manual
 
@@ -41,6 +43,8 @@ There are several options to run Scheme on Windows 10:
 
 * [MIT-OCW 6.001 Home](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/index.htm)
 * [Video Lectures](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/video-lectures/)
+
+
 
 
 
