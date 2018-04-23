@@ -10,7 +10,9 @@ There are several options to run Scheme on Windows 10:
  
  Note: The Windows executable for MIT-Scheme appears to no longer work in Windows 10.
 
-### MIT-Scheme Users Manual
+## Documentation 
+
+### MIT/GNU Scheme Users Manual
 
 [Running Scheme]()
 * [Basics of Starting Scheme]()
@@ -30,4 +32,19 @@ There are several options to run Scheme on Windows 10:
 * [Loading Files](https://www.gnu.org/software/mit-scheme/documentation/mit-scheme-user/Loading-Files.html#Loading-Files)
 * [World Images](https://www.gnu.org/software/mit-scheme/documentation/mit-scheme-user/World-Images.html#World-Images)
 * [Garbage Collection](https://www.gnu.org/software/mit-scheme/documentation/mit-scheme-user/Garbage-Collection.html#Garbage-Collection)
+
+###Don't Panic - A Guide for the Perplexed
+* [REPL Tutorial & Debugging](https://groups.csail.mit.edu/mac/users/gjs/6.945/dont-panic/#sec-2-1)
+  * From the relatively recent [MIT course](https://groups.csail.mit.edu/mac/users/gjs/6.945/index.html) using SICP.
+
+## Video Lectures
+
+[MIT-OCW 6.001 Home](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/index.htm)
+1. [Video Lectures](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/video-lectures/)
+
+
+
+
+
+
 
