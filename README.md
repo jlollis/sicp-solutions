@@ -5,9 +5,11 @@ This is a repository for the solutions for the exercises in [Structure and Inter
 ## Installing Scheme
 
 There are several options to run Scheme on Windows 10:
- * _[DrRacket](https://docs.racket-lang.org/sicp-manual/index.html)_: Install DrRacket and add the sicp language package.
+ * _[DrRacket](https://docs.racket-lang.org/sicp-manual/index.html)_: Install DrRacket and add the SICP language package. 
  * _[MIT-Scheme](https://www.gnu.org/software/mit-scheme/) on WSL_: Install Windows Subsystem for Linux following the instructions [here](https://docs.microsoft.com/en-us/windows/wsl/install-win10). Use the Ubuntu distribution. Install MIT-Scheme with *sudo apt get install mit-scheme*.
  * _[Chicken Scheme](https://www.call-cc.org/) on WSL_: Install WSL Ubuntu. Install Chicken Scheme with *sudo apt get install chicken-bin*. 
+ 
+ I would recommend the first option, because the included text editor makes it easier to start with. [SICP Interpreter Manual for Racket](http://docs.racket-lang.org/sicp-manual/index.html)
  
  Note: The Windows executable for MIT-Scheme appears to no longer work in Windows 10.
 

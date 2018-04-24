@@ -116,14 +116,7 @@ circumference
 ;; (sum-of-squares (+ a 1) (* a 2))
 
 (sum-of-squares (+ 5 1) (* 5 2))
-;136
 
-;; reduces to...
-;(+ (square 6) (square 10))
-;(+ (* 6 6) (* 10 10))
-;(+ 36 100)
-;136
-;;...which is the "substitution model"
 
 ;; 1.1.6 Conditional Expressions and Predicates
 
