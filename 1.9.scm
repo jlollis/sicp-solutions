@@ -5,3 +5,6 @@
       b
       (+ (dec a) (inc b))))
 
+; (enter (+ <value> <value>) to test
+
+
