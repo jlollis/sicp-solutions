@@ -47,6 +47,10 @@ There are several options to run Scheme on Windows 10:
 * [MIT-OCW 6.001 Home](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/index.htm)
 * [Video Lectures](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/video-lectures/)
 
+## Other Resources
+
+* [CS61](http://inst.eecs.berkeley.edu/~cs61a/su10/) Cal Berkeley course from 2010 that uses SICP as the textbook. Helpful for more detailed setup instructions and additional resources.
+
 
 
 
