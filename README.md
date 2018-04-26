@@ -52,6 +52,8 @@ There are several options to run Scheme on Windows 10:
 * [CS61](http://inst.eecs.berkeley.edu/~cs61a/su10/) Cal Berkeley course from 2010 that uses SICP as the textbook. Helpful for more detailed setup instructions and additional resources.
 
 
+"Wishful thinking is essential to good engineering, and certainly essential to good computer science."
+ -Gerald Jay Sussman﻿
 
 
 
