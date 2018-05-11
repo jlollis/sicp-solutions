@@ -11,40 +11,60 @@ After all, she says, since we already know how to compute exponentials, we could
 Is she correct? Would this procedure serve as well for our fast prime tester? Explain. 
 |#
 
-;; Required definitions for square and fast-expt
+;;; Please see 1.25-original-test.scm and 1.25-alyssa-test.scm to compare performance on prime tester.
 
- (define (square m)  
-   (display "square ")(display m)(newline) 
-   (* m m))
+;;; Alyssa's version is a lot slower, because it computes larger numbers at each step, the original version does not. 
 
-; (define (square x) (* x x))
+#|
 
-(define (fast-expt b n)
-  (cond ((= n 0) 1)
-        ((even? n) (square (fast-expt b (/ n 2))))
-        (else (* b (fast-expt b (- n 1))))))
+Tested:
+(timed-prime-test 1009) 
+(timed-prime-test 1013) 
+(timed-prime-test 1019) 
+(timed-prime-test 10007) 
+(timed-prime-test 10009) 
+(timed-prime-test 10037) 
+(timed-prime-test 100003) 
+(timed-prime-test 100019) 
+(timed-prime-test 100043) 
+(timed-prime-test 1000003) 
+(timed-prime-test 1000033) 
+(timed-prime-test 1000037)
+(timed-prime-test 1000000007) 
+(timed-prime-test 1000000009) 
+(timed-prime-test 1000000021) 
 
-;; Alyssa P. Hacker's expmod version 
 
-(define (expmod-alyssa base exp m)
-  (remainder (fast-expt base exp) m))
+Original results:
+1009 *** 0
+1013 *** 0
+1019 *** 0
+10007 *** 0
+10009 *** 0
+10037 *** 0
+100003 *** 0
+100019 *** 0
+100043 *** 0
+1000003 *** 0
+1000033 *** 0
+1000037 *** 0
+1000000007 *** 0
+1000000009 *** 15619
+1000000021 *** 0
+> 
 
-(trace expmod-alyssa)
-(expmod-alyssa 5 101 101) 
+Alyssa's results:
+1009 *** 0
+1013 *** 15626
+1019 *** 0
+10007 *** 140624
+10009 *** 109380
+10037 *** 75384
+100003 *** 4404025
+100019 *** 4045313
+100043 *** 4337429
+1000003 *** 140898389
+1000033 *** 142855404
+1000037 [...and the little green racket man is still running...] 
 
-;; Original expmod solution from 1.2.6
-
-(define (expmod base exp m)
-  (cond ((= exp 0) 1)
-        ((even? exp)
-         (remainder (square (expmod base (/ exp 2) m))
-                    m))
-        (else
-         (remainder (* base (expmod base (- exp 1) m))
-                    m))))        
-
-; testing fast-expt version
-(trace expmod)
-(expmod 5 101 101)
-
-;;; Alyssa's version computes larger numbers at each step, the original version does not. The original version would be faster for the fast-prime tester, because you would expect to be testing larger numbers where this could cause an issue. 
+|#
