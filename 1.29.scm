@@ -9,12 +9,32 @@ and returns the value of the integral, computed using Simpson’s Rule. Use your
 (with n = 100 and n = 1000), and compare the results to those of the integral procedure shown above. 
 |#
 
-(define (simpsons-rule f a b n)
-   (define h   (/ (- b a) n))
-   (define Y_k (lambda (k) (f (+ a (* k h)))))
-   (define (f x)
-     (cond ((or (= x 0) (= x n)) ...)
-           ((even? x) ...)
-           (else ...)))
-   (* (/ h 3)
-      (sum f 0 plus1 n))) 
+;; defined earlier in chapter section
+(define (sum term a next b)
+  (if (> a b)
+      0
+      (+ (term a)
+         (sum term (next a) next b))))
+
+;; define cube
+(define (cube x) (* x x x))
+
+;; define inc 
+(define (inc n) (+ n 1))
+
+;; simpson-integral definition
+(define (simpson-integral f a b n)
+  (define (do-it h)
+    (define (y k)
+      (f (+ a (* k h))))
+    (define (simpson-term k)
+      (* (y k)
+         (cond ((or (= k 0) (= k n)) 1)
+               ((odd? k) 4)
+               (else 2))))
+    (* (/ h 3) (sum simpson-term 0 inc n)))
+  (do-it (/ (- b a) n)))
+
+;; testing
+(simpson-integral cube 0 1 100)
+(simpson-integral cube 0 1 1000) 

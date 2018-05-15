@@ -1,0 +1,1124 @@
+
+
+		The Scheme programming language
+			Ken Dickey
+
+
+
+An Alternate World View
+
+
+Each programming language presents a particular world view in the 
+features it allows, supports, and forbids.  This series of 
+articles describes the world view of the Scheme Programming 
+Language.  This view contains many elements desired in a modern 
+programming language: multi-paradigm support, composable, 
+reusable abstractions, ability to create languages specialized 
+for particular applications, clean separation of the generic and 
+the implementation specific, and scalability from stand alone 
+utilities to major software systems.
+
+Scheme started as an experiment in programming language design  
+by challanging some fundamental design assumptions.  It is 
+currently gaining favor as a first programming language in 
+universities and is used in industry by such companies as DEC, 
+TI, Tektronix, HP, and Sun.
+
+
+
+WHAT IS SCHEME?
+
+
+Scheme is a small, exceptionally clean language which is, very 
+importantly, fun to use.  The language was designed to have very 
+few, regular constructs which compose well to support a variety 
+of programming styles including functional, object-oriented, and 
+imperative.  The language standard is only about 50 pages, 
+including a formal, denotational definition of its semantics.  
+Scheme is based on a formal model (the lambda calculus), so there 
+are plenty of nice properties for the theoreticians and one can
+build knowledgeable code transformation tools reliably.
+
+Scheme has lexical scoping, uniform evaluation rules, and uniform 
+treatment of data types.  Scheme does not have the concept of a 
+pointer, uninitialized variables, specialized looping constructs, 
+or explicit storage management.
+
+So what does Scheme look like?  Well, it looks a lot like Lisp.  
+Don't let this put you off.  We can change how it looks (and will 
+in a future article).  But what is important are the concepts 
+behind it and what you can say with it.  So let me make a few 
+comparisons between Scheme and, say C.  You already know that 
+Scheme is prefix and C is infix:
+
+		Scheme				C 
+
+	(+ 2 3 4)			(2 + 3 + 4)
+
+	(< low x high)			((low < x) && (x < high))
+
+	(+ (* 2 3) (* 4 5))		((2 * 3) + (4 * 5))
+
+	(f x y)				f(x, y)
+
+        (define (sq x) (* x x))		int sq(int x) { return (x * x) }
+
+
+
+In Scheme, all data types are equal.  What one can do to one data 
+type, one can do to all data types.  This is different from most 
+languages which have some data types that can do special things 
+and other data types which are specially restricted.  In most 
+languages numbers have special rights because they can be used 
+without having names (imagine having to name each number before 
+using it!).  Functions are specially restricted because they 
+cannot be created without a name.  
+
+
+In Scheme, unnamed functions are created with the key word 
+lambda.
+
+(lambda (x) (* x x))    	-> a function
+
+(define sq (lambda (x) (* x x))
+
+(sq 9)				-> 27
+
+((lambda (x) (* x x)) 9)	-> 27
+
+
+
+((if (foo? x) * +) 2 3 4)	-> if (foo? x) is true,
+
+						 then (* 2 3 4)
+
+						 else (+ 2 3 4)
+
+
+
+(define (curried-add x) (lambda (y) (+ x y))
+
+(define add3 (curried-add 3)) ;; add3 is a funciton
+
+(add3 7)		-> 10
+
+((curried-add 3) 7)	-> 10
+
+
+
+Rubrics:  
+
+- Variables can hold values of any type.
+
+- Names refer to values; names are not required.
+
+- An expression is one or more forms between parentheses.
+
+- To evaluate an expression, evaluate all the terms first and 
+apply the value of the first form to the values of the other 
+forms.  A nested expression counts as a form.
+
+- A comment starts at a semicolon (;) and goes to the end of the 
+line it is on.
+
+- When a function is evaluated, it remembers the environment 
+where it was evaluated.  {So add3 remembers that X has the value 
+3 when it evaluates ((lambda (y) (+ x y)) 7).}
+
+(define (sq x) (* x x)) is just syntactic sugar for
+
+(define sq (lambda (x) (* x x))
+
+
+
+
+
+There are seven kinds of expressions:
+
+  Constant:			'foo #\Z 3 "a string"
+
+  Variable reference:	foo joe a-long-name-for-an-identifier +
+
+  Procedure creation:	(lambda (z) (* z z z))
+
+  Procedure application:	(cube 37)
+
+  Conditional:			(if (< x 3) sqrt modulo)
+
+  Assignment:			(set! x 5)
+
+  Sequence:			(begin (write x) (write y) (newline))
+
+
+
+Scheme has the usual assortment of data types:
+
+  Characters: #\a #\A #\b #\B #\space #\newline
+
+  Strings: "A little string"
+
+  Arrays (called vectors): #(1 2 "string" #\x 5)
+
+  Lists: (a little (list of) (lists))
+
+  Numbers: 47 1/3 2.3 4.3e14 1+3i
+
+  Functions (also called procedures)
+
+  Booleans: #t #f
+
+  Ports (e.g. open files)
+
+  Symbols: this-is-a-symbol foo a32 c$23*4&7+3-is-a-symbol-too!
+
+
+
+Rubrics:  
+
+- A vector's contents can be any data objects. 
+
+- Symbols may include the characters + - . * / < = > ! ? : $ % _ 
+& ~ and ^.   
+
+- Symbols are case insensitive. 
+
+- Symbols are used for identifiers, so identifiers (variable 
+names) are case insensitive.  
+
+- By convention predicates end in a question mark {e.g. string?} 
+and side effecting procedures end in an exclimation mark {e.g. 
+set!}.
+
+
+Numbers are especially interesting in that an integer is a 
+rational is a real is a complex.  There is no classification of 
+numbers based on their storage class {e.g. fixed, float, bignum, 
+...} but on whether or not they are exact.
+
+  (exact? 3)		-> #t
+
+  (exact? 1/3)		-> #t
+
+  (exact? 2.3##)	-> #f
+
+  (+ 2/3 1/2 5/6)	-> 2
+
+  (integer? 2)		-> #t
+
+  (integer? 3/7)	-> #f
+
+  (real? 2)		-> #t
+
+
+
+
+
+The ZEN of SCHEME
+
+
+
+One of the joys of Scheme which initially confuses some people is 
+the lack of inhibition.  Scheme is very expressive, which means 
+that one can say "the same thing" in many ways.  In Scheme one 
+has the freedom--and the responsibility--of saying exactly what 
+is desired.  We are all used to working around certain language 
+features to get something done.  Scheme gets in the way very 
+little.
+
+As a warming up exercise, let's build a pair.  A pair consists of 
+2 elements obtained by the access routines FIRST and SECOND.  The 
+constructor is called PAIR.  The relations to be maintained are 
+(first (pair 1 2)) -> 1 ; (second (pair 1 2)) -> 2.  For those of you 
+who know LISP, this is not much to get worked up over.  But how 
+many ways can we implement the trio: pair, first, second?  There 
+is a virtually endless variety.
+
+
+;; vector
+
+(define (PAIR a b) (vector a b)) ;; or just: (define PAIR vector)
+
+(define (FIRST  aPair) (vector-ref aPair 0))
+
+(define (SECOND aPair) (vector-ref aPair 1))
+
+------
+
+;; selector function
+
+(define (PAIR a b) (lambda (bool) (if bool a b)))
+
+(define (FIRST  aPair) (aPair #t))
+
+(define (SECOND aPair) (aPair #f))
+
+------
+
+;; message passing
+
+(define (PAIR (a b)
+
+  (lambda (msg)
+
+     (case msg       ;; we'll implement CASE in the next article
+
+        ((first)  a) ;; when the message is the symbol first, return a
+
+        ((second) b)
+
+) )  )
+
+(define (FIRST  aPair) (aPair 'first))
+
+(define (SECOND aPair) (aPair 'second))
+
+------
+
+;; alias
+
+(define PAIR   cons)
+
+(define FIRST  car)
+
+(define SECOND cdr)
+
+------
+
+;; pure functions
+
+(define (PAIR a b) (lambda (proc) (proc a b)))
+
+(define (FIRST  aPair) (aPair (lambda (x y) x)))
+
+(define (SECOND aPair) (aPair (lambda (x y) y)))
+
+
+
+The moral of the above is not to assume anything about the 
+implementation of interfaces--even simple ones.
+
+
+
+
+Now that we are warmed up, let's take a look at ye ol' factorial 
+function on integers.
+
+
+First, the recursive definition:
+
+	(define (fact n)
+	  (if (< n 2)
+		  1
+		  (* n (fact (sub1 n))  ;; (define (sub1 n) (- n 1))
+	)
+
+
+When I first learned about recursive definitions like the one 
+above, the hard thing to get used to was the how the hidden state 
+kept on the stack.  A transformation of the above code makes the 
+stack visible.
+
+
+;; the identity function just returns its argument
+
+(define (identity value) value) 
+
+
+
+;; keep invocation of fact the same, but do something different
+
+(define (fact n) (cfact n identity))
+
+
+
+;; the transformed recursive factorial
+
+(define (cfact n k)
+   (if (< n 2)
+	  (k 1)
+	  (cfact (sub1 n) 
+              (lambda (result) (k (* n result))))
+)  )
+
+
+
+Cfact is the continuation-passing version of fact.  The basic 
+idea here is that instead of returning a result each function 
+takes an extra argument, the continuation, which is invoked with 
+the result of the function.
+
+
+
+Let's look at what happens for (fact 3).
+
+(fact 3) is (cfact 3 identity)
+
+
+(cfact 3 identity) is 
+
+  (cfact 2 
+         (lambda (result) (identity (* 3 result)))) ;; k'
+
+
+
+
+
+which is
+
+  (cfact 1
+         (lambda (result^) ;; k''
+		((lambda (result) (identity (* 3 result))) ; fun k'
+		 (* 2 result^)) ; argument to k'
+
+->
+
+  ((lambda (result^) ;; k''
+	((lambda (result) (identity (* 3 result)))(* 2 result^)))
+	1)
+
+->
+
+   ((lambda (result) (identity (* 3 result))) (* 2 1))
+
+->
+
+  (identity (* 3 (* 2 1)))
+
+->
+
+  (* 3 (* 2 1))
+
+or {as we knew all along}
+
+  6
+
+
+
+The point of this is not that we can take something simple and 
+make it look bizarre.  So why did I do it?  The point is that we 
+can take control which is typically hidden on the stack at run 
+time and study and manipulate it as source code.  This lets us do 
+some interesting things.  For example, we can ignore the 
+continuation passed in and use another one.  If we are writing a 
+game or an AI search routine or a mathematical routine which 
+converges on a result, we can monitor our progress.  If our 
+progress is slow, we can save our continuation--"where we are 
+now"--and try a different approach.  If the newer approach is 
+even worse, we can go back to our saved continuation and try 
+again from there.  We can of course save our attempt at doing 
+better to try again just in case it really was better...
+
+So continuation passing can let us build some pretty interesting 
+control structures.  Let's take another look at the simple 
+function, fact.  When we look at (fact 4), (fact 5), and so on, 
+we see a common pattern.  Each call just stacks up a 
+multiplication.  Since we can see this, we can eliminate the 
+stack and do the multiplication directly by introducing an 
+accumulator.  We take care of initializing the accumulator by 
+noting that anything times one is the same as itself {i.e. the 
+multiplicitive identity: x * 1 = x}.
+
+
+
+(define (cfact n k)
+  ;; lexical scope means we can nest functions
+  (define (ifact x acc k^)  
+   (if (< x 2)
+	  (k^ acc)
+	  (ifact (sub1 x) (* x acc) k^) 
+   ) )
+
+   (ifact n 1 k)
+ )
+
+
+
+Now this looks a bit strange too.  But there is an interesting 
+detail here.  We did not have to build any new continuations!  
+The continuation k^ which is given the final result is exactly 
+the original continuation k.  This means that the call of ifact, 
+which looks recursive, is really iterative.  When it "calls 
+itself" it does not add to the stack.  The "recursive" call to 
+ifact is just a goto.
+
+Scheme requires no special looping constructs. Any function which 
+calls itself in the "tail" position {i.e. as the last thing to be 
+done in the function} is just a loop.  Most procedural languages 
+do too much work.  They "push a return address" even when they 
+don't have to.  Scheme doen't.  In Scheme, function calls can be 
+thought of as gotos which can pass parameters--one of which may 
+be a "return address".  
+
+This means that we can simplify cfact to:
+
+(define (cfact n k)
+
+  (define (ifact n acc)
+     (if (< n 2)
+         (k acc)
+         (ifact (sub1 n) (* n acc))
+  )
+
+  (ifact n 1)
+)
+
+
+
+Taking this a step further, we can redefine fact to call ifact 
+directly:
+
+(define (fact n) (ifact n acc))
+
+(define (ifact n acc)
+   (if (< n 2) acc (ifact (sub1 n) (* n acc)) )
+
+
+
+Or taking advantage of Scheme's lexical scoping:
+
+(define (fact n)
+
+  (define (ifact n^ acc)
+     (if (< n^ 2)
+          acc
+         (ifact (sub1 n^) (* n^ acc))
+   ) )
+
+   (ifact n 1)
+)
+
+
+
+Now we have transformed a recursive function into an iterative 
+one.  This can be done in a formal way, proving every code 
+transformation.  But a nice feature of Scheme is that such 
+transformations can be seen and used directly.  Correct programs 
+can be written which are simple but perhaps run slowly or are not 
+very space efficient and then reliably transformed into programs 
+which are smaller and run much faster--and are also correct.  
+Code transformations become second nature to experienced Scheme 
+programmers.  When a function similar to the recursive function 
+fact is seen, it tends to get written down in the iterative form.
+
+
+-----
+
+
+Scheme has several important advantages.  Its elegantly simple,
+regular structure and trivial syntax avoids "special case" confusion.
+Its expressiveness means that one spends little time trying to work
+around the language--it lets users concentrate on *what* they want to
+say rather than on *how* to say it.  Its support of a variety of
+styles (including OO, which has not been emphasized here) allows users
+to better match their solution style to the style of the problems to
+be solved.  Its formal underpinnings make reasoning about programs
+much easier.  Its abstractive power makes it easy to separate system
+specific optimizations from reusable code.   Its composability makes
+it easy to construct systems from well-tested components.
+
+If you want to write complex, correct programs quickly, scheme for
+success! 
+
+
+;;========================MACROS=================================
+
+
+		Syntax Extension: MACROS
+
+
+Just as functions are semantic abstractions over operations, 
+macros are textual abstractions over syntax.  Managing complex 
+software systems frequently requires designing specialized 
+"languages" to focus on areas of interest and hide superfluous 
+details.  Macros have the advantage of expanding the syntax of 
+the base language without making the native compiler more complex 
+or introducing runtime penalties.
+
+Macros have always been a source of great power and confusion.  
+Scheme has perhaps the most sophisticated macro system of any 
+programming language in wide use today.  How has macro technology 
+advanced?  What are the problems which have been solved?
+
+
+
+PROBLEMS WITH MACROS
+
+
+Macros are frequently considered an advanced topic.  Non-trivial 
+macros are notoriously hard to get right.  Because macros can be 
+used to extend the base language, doing macro design can also be 
+viewed as doing language design.
+
+In the early days, macros were based on simple text substitution.  
+A problem with text substitution is that tokenization rules of 
+the programming language are not respected.  Indeed the 
+tokenization rules of the preprocessor may not match the rules of 
+the target language.  For example, using the m4 preprocessor:
+
+    define( glerph, `"ugly' )
+
+the token glerph followed by the non-token glop"
+
+    glerph glop" 
+
+becomes the string token
+
+    "ugly glop"
+
+
+
+In addition to tokenization confusion, there are problems where 
+macro expansion does not respect the structure of source language 
+expressions.  For example, a well known problem with the C 
+preprocessor:
+
+    #define mean( a, b )  a + b / 2
+
+    mean( x+y, x*y )
+
+becomes
+
+    x+y+x*y/2
+
+and is interpreted by the compiler as
+
+    x + y + ((x * y) / 2)
+
+
+
+There are frequently problems relating to the accidental 
+collision of introduced names.  Even obscure names may collide 
+where there are multiple macro writers or recursive macros.  
+Again, using the C preprocessor:
+
+    #define swap( a, b )  { int temp; temp = a; a = b; b = temp }
+
+...
+
+    swap( temp, x )
+
+becomes
+
+    {int temp; temp = temp; temp = b; b = temp}
+
+
+
+Free names may collide with those used locally:
+
+    #define clear(addr,len) fill(addr,len,0)
+
+...
+
+    {int fill = 0x5a5aa5a5L;
+
+...
+
+      clear(mem_ptr, mem_size); /* local fill shadows hidden global fill */
+
+
+In general, macro systems have done poorly on name conflicts 
+where lexical scoping and recursion are involved.
+
+So what do we want out of a macro system?  We want respect for 
+the syntax, expressions, and name bindings.  We want error 
+checking.  We want a convenient notation for specifying syntactic 
+transcriptions.  And of course we want this in linear processing 
+time.
+
+
+
+
+
+SOME SOLUTIONS
+
+
+
+One thing to notice is that as macro systems have become more 
+sophisticated, they have moved closer to the semantic analysis 
+phase of the compiler.  LISP systems achieved respect for target 
+language syntax by doing macro transformations on parse trees 
+rather than source text.  Scheme's system takes things a step 
+further by respecting lexical scoping and name bindings.  In 
+addition, the standard high-level part of Scheme's macro system 
+specifies syntactic rewrite rules in a pattern directed fashon 
+which includes error checks.
+
+To contrast Scheme's macro system with those of older LISPs, here 
+is a brief historical view of the LET macro.  LET is a construct 
+for introducing new name bindings.  It has the form:
+
+  (let ( (<name1> <init1>) ... )
+        <exp1> <exp2> ... )
+
+
+The semantics of LET is to evaluate the expressions <exp?> in an 
+environment extended by the names <name?> which have initial 
+values obtained by evaluating the expressions <init?>.  An 
+example is: (let ( (a 1) (b 2) ) (+ a b) ), which binds the value 1 to 
+a, 2 to b and then evaluates the expression (+ a b).  LET is 
+syntactic sugar for lambda binding:
+
+   ( (lambda (<name1> ...) <exp1> <exp2> ...) <init1> ... )
+
+
+So (let ( (a 1) (b 2) ) (+ a b) ) rewrites to 
+
+   ( (lambda (a b) (+ a b)) 1 2 )
+
+
+
+Early LISP systems operated directly on the list structures of 
+the parsed source expression using low-level operations:
+
+
+  (macro LET
+     (lambda (form)
+        (cons (cons 'lambda
+                 (cons (map car (cadr form))
+                       (cddr form)))
+        (map cadr (cadr form)))))
+
+
+Later, arguments and "backquotes" were added, making things much 
+more readable, but without error checking.  The backquote (`) 
+indicates an "almost constant" list expression, where comma (,) 
+or comma-splice (,@) are used to force evaluation of a 
+subexpression.  The comma replaces the evaluated expression 
+directly, where comma-splice splices it into the list.
+
+
+So `(lambda ,(cdr (cons 'a 'b)) ,@(cdr (cons 'a 'b)))
+
+becomes (lambda (b) b) .
+
+
+
+Here is LET with argument binding and backquote:
+
+  (define-syntax (LET def-list . expressions)
+     `((lambda ,(map car def-list) ,@expressions)
+         ,@(map cadr def-list)))
+
+
+And here is the Scheme version using pattern maching with error 
+checks:
+
+  (define-syntax LET
+      (syntax-rules ()
+        ( (let ( (<var1> <init1>) ...) <exp1> <exp2> ...)       ; before
+          ; rewrites to
+          ((lambda (<var1> ...) <exp1> <exp2> ...) <init1> ...) ; after
+      ) )
+  )
+
+
+
+This next example demonstrates both macro names shadowing local 
+variables and locals shadowing macros.  The outer binding of CAR 
+is to a function which returns the first element of a list.
+
+
+
+;; from "Macros That Work"
+
+
+(let-syntax ( (first  (syntax-rules () ((first ?x)  (car ?x))))
+              (second (syntax-rules () ((second ?x) (car (cdr ?x)))))
+            )
+
+  (let ( (car "Packard") )
+
+    (let-syntax ( (classic (syntax-rules () ((classic) car))) )
+
+      (let ( (car "Matchbox") )
+
+        (let-syntax ( (affordable (syntax-rules () ((affordable) car))) )
+
+	    (let ( (cars (list (classic) (affordable))) )
+
+	      (list (second cars) (first cars)) ; result
+) ) ) ) ) )
+
+
+The above evaluates to:  ("Matchbox" "Packard")
+
+
+
+
+
+PRACTICUM: extending core Scheme to standard scheme
+
+
+Scheme can remain such a small language because one can extend 
+the syntax of the language without making the compiler more 
+complex.  This allows the compiler to know a great deal about the 
+few (7) basic forms.  Most compiler optimizations then fall out 
+as general rather than special cases.
+
+The following syntax definitions from the current Scheme standard 
+are directly (and simply) implemented.
+
+
+Form: (or <exp> ...)
+
+Example: (or (= divisor 0) (/ number divisor))
+
+Semantics:  OR evaluates the expressions from left to right.  The 
+value of the first true (not #f) expression is returned.  Any 
+remaining expressions are not evalusted.
+
+
+(define-syntax OR
+   (syntax-rules ()
+      ((or) ;=>
+       #f
+      )
+      ((or <test>) ;=>
+       <test>
+      )
+      ((or <test1> <test2> ...) ;=>
+       (let ( (temp <test1>) )
+	 (if temp temp (or <test2> ...))
+      ) )
+)  )
+
+
+
+
+Form: (and <exp> ...)
+
+Example: (and (input-port? p) (read p))
+
+Semantics:  AND evaluates the expressions from left to right.  
+The value of the first false expression is returned.  Any 
+remaining expressions are not evalusted.
+
+
+(define-syntax AND
+   (syntax-rules ()
+      ((and) ;=>
+       #t
+      )
+      ((and <test>) ;=>
+       <test>
+      )
+      ((and <test1> <test2> ...) ;=>
+	 (if <test1> (and <test2> ...) #f)
+      ))	  
+)   )
+
+
+
+
+Forms: (let ( (<name> <value>) ...) <exp1> <exp2> ...)
+       (let <recur> ( (<name> <value>) ...) <exp1> <exp2> ...)
+
+Examples:
+
+      (define A 37)
+
+      (let ( (a 2) (b (+ a 5)) ) (* a b)) ;=> 84
+
+      (let loop ( (count N) (accum 0) )
+           (if (< n 2) 
+               accum 
+               (loop (- count 1) (* count accum))
+
+Semantics: LET evaluates the <init>s in the enclosing environment 
+in some unspecified order and then extends the environment by 
+binding the values to the <name>s and evaluates the expressions 
+from left to right, returning the value of the last expression as 
+the value of the LET.  LET can be thought of as a "parallel 
+assignment".  Note that the value of B in the first example 
+depends on the value of A in the outer environment.
+
+The second form is known as NAMED LET and allows recursion within 
+the let form.  For the example above, the call to LOOP acts as a 
+goto which rebinds the <name>s to fresh values and "starts over 
+at the top of the loop".  Note that this is a functional 
+construct: there are no unbound variables introduced and no 
+assignment is used.
+
+
+(define-syntax LET
+
+   (syntax-rules ()
+
+      ((let ( (<var1> <init1>) ...) <exp1> <exp2> ...)
+       ;=>
+       ((lambda (<var1> ...) <exp1> <exp2> ...) <init1> ...)
+      )
+
+      ((let <name> ( (<var1> <init1>) ...) <exp1> <exp2> ...)
+       ;=>
+       ((letrec ( (<name>
+                   (lambda (<var1> ...) <exp1> <exp2> ...))
+                )
+             <name>)
+        <init1> ...)
+      )
+)  )
+
+
+
+
+
+Form: (LET* ( (<name> <value>) ...) <exp1> <exp2> ...)
+
+Example: 
+
+      (define A 37)
+      (let ( (a 2) (b (+ a 5)) ) (* a b)) ;=> 14
+
+Semantics: Like un-named LET except that the <value> expressions 
+are evaluated sequentially and each "sees" the value of the 
+previous name bindings.
+
+
+(define-syntax LET*
+
+   (syntax-rules ()
+
+      ((let* () <exp1> <exp2> ...) ;=>
+       (let () <exp1> <exp2> ...)
+      )
+
+      ((let* ( (var1> <init1>) (<var2> <init2>) ... )
+               <exp1> <exp2> ...)
+       ;=>
+       (let ( (<var1> <init1>) )
+          (let* ( (<var2> <init2>) ... )
+	       <exp1> <exp2> ...))
+      )
+)  )
+
+
+
+
+Form: (LETREC ( (<name> <init>) ...) <exp1> <exp2> ...)
+
+Example:
+
+      (letrec ( (EVEN? 
+                  (lambda (n)
+                    (if (zero? n) #t (odd? (sub1 n)))))
+
+                (ODD?
+	          (lambda (n)
+                    (if (zero? n) #f (even? (sub1 n)))))
+              )
+
+         (even? 14)) ;;=> #t
+
+Semantics: Mutually recursive form of let.  All name bindings are 
+visible to all <init>s.  Because the order of evaluation of the 
+<init>s is unspecified, it must be possible to evaluate each init 
+without refering to the *value* of any <name>.  Note that if the 
+values are all lambda expressions, this condition is always 
+satisfied.
+
+
+
+(define-syntax LETREC
+
+   (syntax-rules ()
+
+      ((letrec ( (<var1> <init1>) ... )
+               <exp1> <exp2> ...)
+       ;=>
+       (let ( (<var1> #f) ... )
+	     (set! <var1> <init1>) ...
+	     <exp1> <exp2> ...)
+      ))
+)  )
+
+
+
+
+Forms: (cond (<test> <expr> ...) ... )
+       (cond (<test> <expr> ...) ... (else <expr2> ...))
+
+Examples: (cond ((< x 0) 'negative)
+                ((> x 0) 'positive)
+                (else 'neither))
+
+          (cond ((assq key alist) => cdr) 
+                (else search-failure-value))
+
+Semantics: Each <test> expression is evaluated in turn.  The 
+first <test> which evaluates to true causes the <expr>s to be 
+evaluated.  The value of the last <expr> is returned in this 
+case, or the value of <text> if there are no <expr>s.  If no 
+<test> is true, the <expr2>s of the else clause are evaluated and 
+the value of the last <expr2> is the value of the COND 
+expression.  If not <test> is true and there is no else clause, 
+the result is unspecified.  If a <test> is true and followed by 
+'=> then the <exp> following must evaluate to a procedure of one 
+argument and the procedure is called with the value of the <test> 
+expression as an argument.
+
+
+
+(define-syntax COND
+
+   (syntax-rules ( else => )  ;; 'else and '=> must match exactly
+
+      ((cond)  ;=>
+	#f
+      )
+
+      ((cond (else <exp1> <exp2> ...)) 
+       (begin <exp1> <exp2> ...)
+      )
+
+      ((cond (<test> => <recipient>) <clause> ...)
+       ;=>
+       (let ( (result <test>) )
+          (if result
+              (<recipient> result)
+              (cond <clause> ...))
+      ))
+
+      ((cond (<test>) <clause> ...)
+       (or <test> (cond <clause> ...))
+      )
+
+      ((cond (<test> <exp1> <exp2> ...) <clause> ...)
+       (if <test> (begin <exp1> <exp2> ...) (cond <clause> ...))
+      )
+)  )
+
+
+
+Form: (case <key> ((<datum> ...) <exp1> <exp2> ...) ...
+                  (else <exp3> <exp4> ...))
+
+Example: (case (peak-char (current-input-port))
+               ((#\h #\?) (print-help-text))
+               ((#\space #\newline) (keep-looking))
+               (else (read-command)))
+
+Semantics: The <key> expression is evaluated and compared in turn 
+to each <datum>.  If it is equivalent (eqv?), then the <exp>s of 
+the first clause containing the datum are evaluated and the value 
+of the last one is returned as the value of the CASE expression.  
+If no match is found, then the else expression(s) are evaluated 
+and the last value returned, otherwise the value of the CASE is 
+unspecified.
+
+
+
+(define-syntax CASE
+
+   (syntax-rules ( else )
+
+      ((case <key>)
+	<key>
+      )
+
+      ((case <key> (else <exp1> <exp2> ...))
+       (begin <key> <exp1> <exp2> ...)
+      )
+
+      ((case <key> ((<datum> ...) <exp1> <exp2> ...) <clause> ...)
+       ;=>
+       (let ( (key <key>) )
+          (if (memv key '(<datum> ...))
+              (begin <exp1> <exp2> ...)
+              (case key <clause> ...))
+      ))
+)  )
+
+
+
+PROBLEMS WHICH REMAIN: 
+
+<Side effects>
+<Introduced names>
+<Macros look like functions but are not {ex: lambda*}>
+
+
+
+=============
+
+LOOKING FURTHER
+
+
+W. Clinger & J. Rees: "Macros That Work", Proceedings of the 
+Eighteenth Annual ACM SIGACT-SIGPLAN Symposioum on Principles of 
+Programming Languages (a.k.a. POPL 18), January 1991; Also 
+published as Department of Computer and Information Science 
+Technical Report CIS-TR 90-17 by the University of Oregon.
+
+A. Bawden & J. Rees: "Syntactic Closures", 1988 ACM Conference on 
+Lisp and Functional Programming [ACM #552880].
+
+E. Kholbecker, D. Friedman, M. Felleisen, & B. Duba: "Hygenic 
+Macro Expansion", 1986 ACM Conference on Lisp and Functional 
+Programming [ACM #552860].
+
+E. Kohlbecker: Syntactic Extensions in the Programming Language 
+LISP, Technical Report number 199, Indiana University CS 
+Department, 1986.
+
+K. Dybvig & R. Hieb: "A Variable-Arity Procedural Interface", 
+1988 ACM Conference on Lisp and Functional Programming [ACM 
+#552880]. {Lambda* proposal}
+
+;;============================================================
+BOOKS ON SCHEME
+
+G. Springer and D. P. Friedman,  Scheme and the Art of Programming ,
+MIT Press and McGraw-Hill, 1989, ISBN 0-262-19288-8.
+
+H. Abelson, G. J. Sussman and J. Sussman,  Structure and
+Interpretation of Computer Programs, MIT Press, Cambridge, Mass.,
+1985, ISBN 0-262-01077-1.
+
+Eisenberg,  Programming in Scheme, MIT Press, 1988, ISBN 0-262-55018-0.
+
+Eisenberg, Hartheimer, Clinger, & Abelson,  Programming in MacScheme,
+MIT Press, 1990, ISBN 0-262-55018-0
+
+Lightship, MacScheme, MIT Press, 1990, ISBN 0-262-62077-4
+
+R. Kent Dybvig,  The Scheme Programming Language, Prentice Hall,
+1987, ISBN 0-13-791864-X.
+
+Ferguson, Martin, & Kaufman, _The Schemer's Guide_, Schemers Inc.
+
+=====
+STANDARDS:
+
+IEEE Standard 1178-1990. "IEEE Standard for the Scheme Programming
+Language", IEEE, New York, 1991, ISBN 1-55937-125-0 [1-800-678-IEEE:
+order # SH14209].
+
+W. Clinger and J. Rees, eds., "Revised^4 Report on the Algorithmic
+Language Scheme", ACM LISP Pointers IV, 3 (July-September 1991).
+
+J. A. Rees and W. Clinger, eds., "Revised^3 Report on the Algorithmic
+Language Scheme", ACM Sigplan Notices 21, 12 (December 1986).
+
+======
+
+IMPLEMENTATIONS: (partial list)
+
+Chez Scheme and MacScheme are probably the best known commercial
+implementations, but there are a large number of experimental and
+teaching implementations as well.  Several are available via ftp from
+the Scheme Repository on nexus.yorku.ca [130.63.9.1] under pub/scheme.
+Contact: Ozan Yigit: oz@nexus.yorku.ca.  Not all conform to the recent
+IEEE/ANSI standard.
+
+Chez Scheme	Skim		MacScheme		XScheme
+PC Scheme	Scm		MIT Scheme		Fool's Lisp
+Scheme->C	T		UMB Scheme 		ELK Scheme
+Scheme86	Gambit		Scheme48		Vincenns Scheme
+EdScheme	FDU Scheme	OakLisp			Pixie Scheme
+Scheme 311	SIOD		MultiScheme		MultiLisp
+TekScheme	PaiLisp		Mul-T			Concurrent Scheme
+STING		PMLisp
+
+;;			--- E O F ---			;;
+

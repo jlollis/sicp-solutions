@@ -304,3 +304,17 @@ foo			- instantiates itself
 			(cadr v))))
 ;# END SLIDE
 
+#|
+
+Notes:
+Pattern matching: rule based substitution
+Pattern matching is kept separate from instantiation
+recursive loop possible if your rules are not carefully constructed
+Sussman - goal is to "teach you how to do it [write a scheme] so you don't have to depend on a language designer, you can roll your own"
+expression tree, pattern tree, traverse two trees and match
+"feel the flavor"
+"feel the shape of it"
+Sussman - "I've used it in a reasonable way, I will get a reasonable result. You have to learn how to...program that way...with abandon."
+Sussman on expert systems - lol :) 
+
+|#
