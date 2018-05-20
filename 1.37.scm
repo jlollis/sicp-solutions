@@ -30,44 +30,8 @@ b. If your cont-frac procedure generates a recursive process, write one that gen
 process. If it generates an iterative process, write one that generates a recursive process. 
 |#
 
-;;;SECTION 1.3.3
-
-;; Half-interval method
-
-(define (search f neg-point pos-point)
-  (let ((midpoint (average neg-point pos-point)))
-    (if (close-enough? neg-point pos-point)
-        midpoint
-        (let ((test-value (f midpoint)))
-          (cond ((positive? test-value)
-                 (search f neg-point midpoint))
-                ((negative? test-value)
-                 (search f midpoint pos-point))
-                (else midpoint))))))
-
-(define (close-enough? x y)
-  (< (abs (- x y)) 0.001))
-
-(define (half-interval-method f a b)
-  (let ((a-value (f a))
-        (b-value (f b)))
-    (cond ((and (negative? a-value) (positive? b-value))
-           (search f a b))
-          ((and (negative? b-value) (positive? a-value))
-           (search f b a))
-          (else
-           (error "Values are not of opposite sign" a b)))))
-
-
-;: (half-interval-method sin 2.0 4.0)
-
-;: (half-interval-method (lambda (x) (- (* x x x) (* 2 x) 3))
-;:                       1.0
-;:                       2.0)
-
-
-;; Fixed points
-
+; From 1.35 - phi calculated 
+; fixed point definition given in equations from chapter section. 
 (define tolerance 0.00001)
 
 (define (fixed-point f first-guess)
@@ -80,17 +44,35 @@ process. If it generates an iterative process, write one that generates a recurs
           (try next))))
   (try first-guess))
 
-
-;: (fixed-point cos 1.0)
-
-;: (fixed-point (lambda (y) (+ (sin y) (cos y)))
-;:              1.0)
-
-
 (define (sqrt x)
   (fixed-point (lambda (y) (/ x y))
                1.0))
 
-(define (sqrt x)
-  (fixed-point (lambda (y) (average y (/ x y)))
+; This is 1/phi, for comparison
+(/ 1(fixed-point (lambda (x) (+ 1 (/ 1 x))) ; x -> 1 + 1/x
                1.0))
+
+; ANSWER 1.37
+; recursive 
+(define (cont-frac n d k)
+  (define (k-summ i)
+    (if (< i k)
+        (/ (n i) (+ (d i) (k-summ (+ i 1))))
+        (/ (n i) (d i))))
+  (k-summ 1))
+
+(cont-frac (lambda (i) 1.0)
+           (lambda (i) 1.0)
+           10)
+
+; iterative
+(define (cont-frac-iter n d k)
+  (define (iter i k-summ)
+    (if (= i 0)
+        k-summ
+        (iter (- i 1) (/ (n i) (+ (d i) k-summ)))))
+  (iter (- k 1) (/ (n k) (d k))))
+
+(cont-frac-iter (lambda (i) 1.0)
+           (lambda (i) 1.0)
+           10)
