@@ -9,6 +9,24 @@ procedure in expressions of the form:
 to approximate zeros of the cubic (x^3) + (ax^2) + bx + c.
 |#
 
+(define (cube x) (* x x x))
+;; define average
+ (define (average x y) 
+   (/ (+ x y) 2.0))
+
+;; define fixed-point
+(define tolerance 0.000000000000000000000001)
+
+(define (fixed-point f first-guess) 
+  (define (close-enough? v1 v2) 
+    (< (abs (- v1 v2)) tolerance)) 
+  (define (try guess) 
+    (let ((next (f guess))) 
+      (if (close-enough? guess next) 
+          next 
+          (try next)))) 
+  (try first-guess)) 
+
 ;;;SECTION 1.3.4
 
 (define (average-damp f)
@@ -25,15 +43,11 @@ to approximate zeros of the cubic (x^3) + (ax^2) + bx + c.
                1.0))
 
 ;; Newton's method
-
+(define dx 0.00001)
 (define (deriv g)
   (lambda (x)
     (/ (- (g (+ x dx)) (g x))
        dx)))
-(define dx 0.00001)
-
-
-(define (cube x) (* x x x))
 
 ;: ((deriv cube) 5)
 
@@ -44,10 +58,9 @@ to approximate zeros of the cubic (x^3) + (ax^2) + bx + c.
 (define (newtons-method g guess)
   (fixed-point (newton-transform g) guess))
 
-
-(define (sqrt x)
-  (newtons-method (lambda (y) (- (square y) x))
-                  1.0))
+; (define (sqrt-2 x)
+; (newtons-method (lambda (y) (- (square y) x))
+;                  1.0)
 
 
 ;; Fixed point of transformed function
@@ -55,18 +68,39 @@ to approximate zeros of the cubic (x^3) + (ax^2) + bx + c.
 (define (fixed-point-of-transform g transform guess)
   (fixed-point (transform g) guess))
 
-(define (sqrt x)
+(define (sqrt-3 x)
   (fixed-point-of-transform (lambda (y) (/ x y))
                             average-damp
                             1.0))
 
-(define (sqrt x)
+(define (sqrt-4 x)
   (fixed-point-of-transform (lambda (y) (- (square y) x))
                             newton-transform
                             1.0))
 
+#|
+Exercise 1.40. Define a procedure cubic that can be used together with the newtons-method
+procedure in expressions of the form:
 
-;;EXERCISE 1.40
-;: (newtons-method (cubic a b c) 1)
+(newtons-method (cubic a b c) 1)
+
+to approximate zeros of the cubic (x^3) + (ax^2) + bx + c.
+|#
+
+(define (square x) (* x x))
+
+;(define (cube x)(* x x x))
+
+(define (cubic a b c)
+  (lambda (x)(+ (cube x))(* a (square x))(* b x)(+ c)))
+
+; not working in test... :(
+(newtons-method (cubic 5 4 6) 1)
+
+
+
+
+
+
 
 
