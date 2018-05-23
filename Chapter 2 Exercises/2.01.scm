@@ -7,7 +7,7 @@ numerator and denominator are positive, and if the rational number is negative, 
 negative. 
 |#
 
-; From chapter 2.1
+; from chapter 2.1
 (define (add-rat x y)
   (make-rat (+ (* (numer x) (denom y))
                (* (numer y) (denom x)))
@@ -65,7 +65,6 @@ negative.
 (print-rat (add-rat one-third one-third)) ; doesn't reduce...
 
 ; ANSWER:
-
 (define (make-uber-rat n d)
   (define (neg x)
     (if (< x 0)
