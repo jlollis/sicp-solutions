@@ -94,7 +94,7 @@ to approximate zeros of the cubic (x^3) + (ax^2) + bx + c.
 (define (cubic a b c)
   (lambda (x)(+ (cube x))(* a (square x))(* b x)(+ c)))
 
-; not working in test... :(
+; not working...getting division by zero error
 (newtons-method (cubic 5 4 6) 1)
 
 
