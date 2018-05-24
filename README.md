@@ -1,9 +1,10 @@
-# SICP Exercise Solutions
+# SICP Exercise Solutions :purple_heart:
 
-<div style="text-align:center"><img src ="https://faisalpp.files.wordpress.com/2015/02/sicp.gif" /></div>
-===
+This is a repository for the solutions for the exercises in [Structure and Interpretation of Computer Programs](https://mitpress.mit.edu/sites/default/files/sicp/index.html)
 
-This is a repository for the solutions for the exercises in [Structure and Interpretation of Computer Programs](https://mitpress.mit.edu/sites/default/files/sicp/index.html) :blue_heart:
+![SICP Graphic](https://faisalpp.files.wordpress.com/2015/02/sicp.gif)
+
+---
 
 ## Installing Scheme
 
