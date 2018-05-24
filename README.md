@@ -1,4 +1,4 @@
-# SICP Exercise Solutions 
+# 👩‍💻🔮🧙 SICP Exercise Solutions 🧙🔮👩‍💻
 
 This is a repository for the solutions for the exercises in [Structure and Interpretation of Computer Programs](https://mitpress.mit.edu/sites/default/files/sicp/index.html).
 
@@ -59,7 +59,4 @@ There are several options to run Scheme on Windows 10:
 
 <div style="text-align:center">:octocat:</div>
 
-
-
-
-
+:mage:
