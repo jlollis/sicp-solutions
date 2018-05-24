@@ -1,10 +1,8 @@
-# SICP Exercise Solutions :purple_heart:
-
-This is a repository for the solutions for the exercises in [Structure and Interpretation of Computer Programs](https://mitpress.mit.edu/sites/default/files/sicp/index.html)
+# SICP Exercise Solutions 
 
 ![SICP Graphic](https://faisalpp.files.wordpress.com/2015/02/sicp.gif)
 
----
+This is a repository for the solutions for the exercises in [Structure and Interpretation of Computer Programs](https://mitpress.mit.edu/sites/default/files/sicp/index.html)
 
 ## Installing Scheme
 
@@ -59,7 +57,7 @@ There are several options to run Scheme on Windows 10:
 "Wishful thinking is essential to good engineering, and certainly essential to good computer science."
  -Gerald Jay Sussman﻿
 
-:octocat:
+<p style="text-align:center">:octocat:</p>
 
 
 
