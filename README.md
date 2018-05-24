@@ -3,7 +3,6 @@
 This is a repository for the solutions for the exercises in [Structure and Interpretation of Computer Programs](https://mitpress.mit.edu/sites/default/files/sicp/index.html).
 
 ![SICP Graphic](https://faisalpp.files.wordpress.com/2015/02/sicp.gif)
-===
 
 ## Installing Scheme
 
