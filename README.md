@@ -17,7 +17,7 @@ There are several options to run Scheme on Windows 10:
 
 ## Documentation
 
-[MIT Scheme Reference Manual](https://groups.csail.mit.edu/mac/ftpdir/mit-scheme/7.7/7.7.1/doc-pdf/scheme.pdf)
+[MIT Scheme Reference Manual](https://groups.csail.mit.edu/mac/ftpdir/mit-scheme/7.7/7.7.1/doc-pdf/scheme.pdf) 
 
 ### MIT/GNU Scheme Users Manual
 
@@ -46,8 +46,10 @@ There are several options to run Scheme on Windows 10:
 
 ## Video Lectures
 
+All of the video lectures for the course are available on MIT OpenCourseware and YouTube. There are 20 lectures total, each about an hour long, which were recorded by Hewlett-Packard Television for HP employees in 1986. The video quality as presented isn't the greatest, but the production is otherwise excellent. To get the most out of them, you will probably want to have the transcripts and code from the lectures up while watching. 
+
+* [Video Lectures for SICP](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/video-lectures/)
 * [MIT-OCW 6.001 Home](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/index.htm)
-* [Video Lectures](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/video-lectures/)
 
 ## Other Resources
 
