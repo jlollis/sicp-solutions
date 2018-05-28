@@ -57,7 +57,7 @@ All of the video lectures for the course are available on MIT OpenCourseware and
 * [The Adventures of a Pythonista in Schemeland](http://www.phyast.pitt.edu/~micheles/scheme/index.html) This is interesting. An academic Python programmer/researcher works through SICP.
 
 
-"Wishful thinking is essential to good engineering, and certainly essential to good computer science." :blueheart:
+"Wishful thinking is essential to good engineering, and certainly essential to good computer science."
  -Gerald Jay Sussman
 
 :octocat:
