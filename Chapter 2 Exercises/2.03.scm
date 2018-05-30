@@ -10,16 +10,7 @@ procedures will work using either representation?
 
 ; ANSWER:
 
-;; Okay...I'm going to skip this one for now. I don't mind taking the midpoint of a "given" line in 2.3, which requires me to
-;; supply the points, because it works for any set of points. But I really dislike the way this question, 2.4, is phrased.
-;; How is this rectangle "given"? Are we given points that we assume are valid vertices for a rectangle? What if they aren't?
-;; With the limited knowledge that we have so far, it only seems possible to write a program with a lot of restrictions
-;; or very limited use.
-
-;; Since I am doing this for fun, I'm going to nope right out of this one. You can't win. Even if you get it "right",
-;; its wrong.
-
-;; I'm not ruling out coming back to it later, when I know more Scheme, though. 
+[...]
 
 ;; Refer to:
 ;; ANSWER 2.2:
