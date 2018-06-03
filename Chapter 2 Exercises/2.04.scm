@@ -24,13 +24,20 @@ substitution model of section 1.1.5.)
 (car (cons "42" "lol"))
 (car (cons "six" 6))
 
-; and so on...
-
-; definition of cdr, using substitution model
-
+; definition of cdr
 (define (cdr z)
   (z (lambda (p q) p)))
 
-(car (cons 3 9))
-(car (cons "42" "lol"))
-(car (cons "six" 6))
+(cdr (cons 3 9))
+(cdr (cons "42" "lol"))
+(cdr (cons "six" 6))
+
+; using subsitution model, verify (car (cons x y)) yields x for any objects x and y:
+
+#|
+(car (cons x y))
+(car (lambda (m) (m x y)))
+((lambda (m) (m x y))(lambda (p q) (p)))
+((lambda (p q) p) x y)
+x
+|#
