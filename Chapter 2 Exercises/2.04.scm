@@ -34,6 +34,3 @@ substitution model of section 1.1.5.)
 (car (cons 3 9))
 (car (cons "42" "lol"))
 (car (cons "six" 6))
-
-; checks out...
-; that's how Scheme was written to work, no surprises here...
