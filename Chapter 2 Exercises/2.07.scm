@@ -1,7 +1,7 @@
 #lang sicp
 
 #|
-Extended Excercis: Interval Arithmetic (from exercise 2.7 through 2.11)
+2.1.4 Extended Excercise: Interval Arithmetic (exercises 2.7 - 2.11)
 Exercise 2.7. Alyssa’s program is incomplete because she has not specified the implementation of the
 interval abstraction. Here is a definition of the interval constructor:
 
