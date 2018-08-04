@@ -10,6 +10,18 @@ only of the widths of the intervals being added (or subtracted). Give examples t
 true for multiplication or division. 
 |#
 
+; this procedure won't work with mul-interval or div-interval, since zeros or negative numbers would need to be handled
+; differently than when dealing  with addition and subtraction.
+
+; The examples below
+
+; width of an interval is half of the difference between its upper and lower bounds
+(define (width-interval x y)
+  (abs
+  (* .5
+      (- (lower-bound x) (lower-bound y)
+      (- (upper-bound x) (upper-bound y))))))
+
 ; answer 2.8 : sub-interval - interval subtraction procedure 
 (define (sub-interval x y)
   (make-interval (- (lower-bound x) (lower-bound y))
@@ -30,7 +42,7 @@ true for multiplication or division.
     (make-interval (min p1 p2 p3 p4)
                    (max p1 p2 p3 p4))))
 
-; divide intervals
+
 (define (div-interval x y)
   (mul-interval x
                 (make-interval (/ 1.0 (upper-bound y))
@@ -42,8 +54,8 @@ true for multiplication or division.
 (define (upper-bound i) (cdr i))
 
 ; test
-(define a (make-interval 2 6))
-(define b (make-interval 8 16))
+(define a (make-interval 22 3))
+(define b (make-interval 5 6))
 
 ; test
 (upper-bound a)
@@ -51,10 +63,47 @@ true for multiplication or division.
 (upper-bound b)
 (lower-bound b)
 
+; Test 
+; display-interval definition, for formatting output
+(define (display-interval a) 
+   (display "[") 
+   (display (lower-bound a)) 
+   (display ",") 
+   (display (upper-bound a)) 
+   (display "]"))
+
+
+(display "sub-interval a = ")(display-interval a)
+(newline)
+(display "sub-interval b = ")(display-interval b)
+(newline)
+(display "sub-interval a b = ")(display-interval (sub-interval a b))
+(newline)
+(display "sub-interval b a = ")(display-interval (sub-interval b a))
+(newline)
+(display "sub-interval a b = ")(display-interval (sub-interval a b))
+(newline)
+
 ; test with given above
-(add-interval a b)
-(mul-interval a b)
-(div-interval a b)
+;(add-interval a b)
+;(mul-interval a b)
+;(div-interval a b)
+;(display "sub-interval a b =")(sub-interval a b)
 
 ; testing 2.8 - interval subtraction procedure
-(sub-interval a b)
+(display "width = ")(width-interval b a)
+
+
+(display "mul-interval a = ")(display-interval a)
+(newline)
+(display "mul-interval b = ")(display-interval b)
+(newline)
+(display "mul-interval a b = ")(display-interval (mul-interval a b))
+(newline)
+(display "mul-interval b a = ")(display-interval (mul-interval b a))
+(newline)
+(display "mul-interval a b = ")(display-interval (mul-interval a b))
+(newline)
+(display "width = ")(width-interval (mul-interval a a)(mul-interval b b))
+
+
