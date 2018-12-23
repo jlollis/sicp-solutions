@@ -4,15 +4,15 @@ This is a repository for the solutions for the exercises in [Structure and Inter
 
 ![SICP Graphic](https://faisalpp.files.wordpress.com/2015/02/sicp.gif)
 
-## Installing
+## Setup
 
 For Windows 10, I would highly recommend _[Racket](https://docs.racket-lang.org/sicp-manual/index.html)_. It is a really nice IDE for Scheme Lisp. Install Racket and add the SICP language package. There is also a Linux version available, as well.
  
 There are other options, but Racket has gotten really good and is much better than anything else I've come across. It reminds me of Code::Blocks, but for Lisp.
 
 ## Resources
-## MIT Scheme Manual
 
+### Official Documentation
 [MIT Scheme Reference Manual](https://groups.csail.mit.edu/mac/ftpdir/mit-scheme/7.7/7.7.1/doc-pdf/scheme.pdf) 
 
 ### Don't Panic - A Guide for the Perplexed 
