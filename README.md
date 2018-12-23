@@ -1,4 +1,4 @@
-# SICP Exercise Solutions ~ 🧙🔮
+# 🔮🧙 SICP Exercise Solutions  🧙🔮
 
 This is a repository for the solutions for the exercises in [Structure and Interpretation of Computer Programs](https://mitpress.mit.edu/sites/default/files/sicp/index.html).
 
@@ -6,9 +6,9 @@ This is a repository for the solutions for the exercises in [Structure and Inter
 
 ## Setup
 
-For Windows 10, I would highly recommend _[Racket](https://docs.racket-lang.org/sicp-manual/index.html)_. It is a really nice IDE for Scheme Lisp. Install Racket and add the SICP language package. There is also a Linux version available, as well.
+For Windows 10, I would highly recommend _[Racket](https://docs.racket-lang.org/sicp-manual/index.html)_. Install Racket and add the SICP language package. There is also a Linux version available, as well.
  
-There are other options, but Racket has gotten really good and is much better than anything else I've come across. It reminds me of Code::Blocks, but for Lisp.
+There are other options, but Racket has gotten really good and is much better than anything else I've come across. It is a really nice IDE for Scheme Lisp. 
 
 ## Resources
 
