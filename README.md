@@ -8,7 +8,7 @@ This is a repository for the solutions for the exercises in [Structure and Inter
 
 For Windows 10, I would highly recommend _[Racket](https://docs.racket-lang.org/sicp-manual/index.html)_. Install Racket and add the SICP language package. There is also a Linux version available, as well.
  
-There are other options, but Racket has gotten really good and is much better than anything else I've come across. It is a really nice IDE for Scheme Lisp. 
+There are other options, but Racket has gotten really good and is much better than anything else I've come across. It is a really nice IDE for Scheme. 
 
 ## Resources
 
