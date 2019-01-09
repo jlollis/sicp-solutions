@@ -2,7 +2,7 @@
 
 This is a repository for the solutions for the exercises in [Structure and Interpretation of Computer Programs](https://mitpress.mit.edu/sites/default/files/sicp/index.html).
 
-![SICP Graphic](https://faisalpp.files.wordpress.com/2015/02/sicp.gif)
+![Hermes Trismegestus and Raymon Llull](\images/Hermes-Trismegestus-and-Raymon-Llull-SICP.png)
 
 ## Setup
 
@@ -35,4 +35,11 @@ All of the video lectures for the course are available on MIT OpenCourseware and
 "Wishful thinking is essential to good engineering, and certainly essential to good computer science."
  -Gerald Jay Sussman
 
-:octocat:
+The image above an 1848 engraving of Hermes Trismegestus and Raymon Llull, and is the source for the famous cover art. [https://archive.org/details/lemoyengeetlar02jaco/page/n53](https://archive.org/details/lemoyengeetlar02jaco/page/n53)
+
+https://twitter.com/TwoBitHistory/status/1051826516844322821
+
+https://archive.org/details/lemoyengeetlar02jaco/page/n53
+
+
+
