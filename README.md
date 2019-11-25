@@ -37,7 +37,6 @@ All of the video lectures for the course are available on MIT OpenCourseware and
 ---
 
 Note: The header image is taken from an 1848 engraving of Hermes Trismegestus and Raymon Llull, and is the source for the famous cover art. 
-
 <br/>[https://archive.org/details/lemoyengeetlar02jaco/page/n53](https://archive.org/details/lemoyengeetlar02jaco/page/n53)<br/>
 https://twitter.com/TwoBitHistory/status/1051826516844322821<br/>
 https://archive.org/details/lemoyengeetlar02jaco/page/n53<br/>
