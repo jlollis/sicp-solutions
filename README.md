@@ -30,13 +30,9 @@ All of the video lectures for the course are available on MIT OpenCourseware and
 
 * [CS61](http://inst.eecs.berkeley.edu/~cs61a/su10/) Cal Berkeley course from 2010 that uses SICP as the textbook. Helpful for more detailed setup instructions and additional resources.
 * [The Adventures of a Pythonista in Schemeland](http://www.phyast.pitt.edu/~micheles/scheme/index.html) An academic Python programmer/researcher works through SICP.
-
-<br/><br/>
-
+<br/>
 "Wishful thinking is essential to good engineering, and certainly essential to good computer science." -Gerald Jay Sussman
-
-<br/><br/>
-
+<br/>
 ---
 
 Note: The header image is taken from an 1848 engraving of Hermes Trismegestus and Raymon Llull, and is the source for the famous cover art. 
