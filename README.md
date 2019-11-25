@@ -6,7 +6,9 @@ This is a repository for the solutions for the exercises in [Structure and Inter
 
 ## Setup
 
-I would highly recommend using _[Racket](https://racket-lang.org/)_ (formerly DrRacket) with the [SICP language package](https://docs.racket-lang.org/sicp-manual/index.html) installed. Follow the instructions for your system platform and enjoy. :)
+I would highly recommend using _[Racket](https://racket-lang.org/)_ (formerly DrRacket) with the [SICP language package](https://docs.racket-lang.org/sicp-manual/index.html) installed. 
+
+Follow the installation instructions for your system and enjoy. :)
 
 ## Resources
 
