@@ -33,6 +33,7 @@ All of the video lectures for the course are available on MIT OpenCourseware and
 <br/>
 "Wishful thinking is essential to good engineering, and certainly essential to good computer science." -Gerald Jay Sussman
 <br/>
+
 ---
 
 Note: The header image is taken from an 1848 engraving of Hermes Trismegestus and Raymon Llull, and is the source for the famous cover art. 
