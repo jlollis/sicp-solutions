@@ -8,8 +8,6 @@ This is a repository for the solutions for the exercises in [Structure and Inter
 
 I would highly recommend using _[Racket](https://racket-lang.org/)_ (formerly DrRacket) with the [SICP language package](https://docs.racket-lang.org/sicp-manual/index.html) installed. Follow the instructions for your system platform and enjoy. :)
 
-There are other options out there, but this is the way to go. 
-
 ## Resources
 
 ### Official Documentation
