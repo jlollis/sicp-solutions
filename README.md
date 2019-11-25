@@ -6,7 +6,7 @@ This is a repository for the solutions for the exercises in [Structure and Inter
 
 ## Setup
 
-For your editor/IDE I would highly recommend using _[Racket](https://racket-lang.org/)_ (formerly DrRacket) with the _SICP language package(https://docs.racket-lang.org/sicp-manual/index.html)_ installed. 
+For your editor/IDE I would highly recommend using _[Racket](https://racket-lang.org/)_ (formerly DrRacket) with the [SICP language package](https://docs.racket-lang.org/sicp-manual/index.html) installed. 
  
 There are other options, but Racket has gotten really good and is much better than anything else I've come across. It is a really nice IDE for Scheme. 
 
